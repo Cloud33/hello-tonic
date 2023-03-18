@@ -23,8 +23,13 @@ impl Greeter for MyGreeter {
     ) -> Result<Response<HelloReply>, Status> {
         println!("Got a request: {:?}", request);
  
-        let reply = HelloReply {
-            message: format!("Hello {}!", request.into_inner().name).into(), // 由于gRPC请求和响应中的字段都是私有的，所以需要使用 .into_inner()
+        let reply = match request.metadata().get("inner") {
+            Some(_) =>HelloReply {
+                message: format!("Hello Inner {}!", request.into_inner().name).into(),
+            },
+            _ => HelloReply {
+                message: format!("Hello {}!", request.into_inner().name).into(),
+            },
         };
  
         Ok(Response::new(reply)) // 发回格式化的问候语
