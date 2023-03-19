@@ -3,8 +3,6 @@ use tonic::{Response, Request, Status};
 
 
 pub mod pb;
-pub mod multiplex_service;
-
 // client
 
 
