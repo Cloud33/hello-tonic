@@ -3,6 +3,7 @@ use tonic::{Response, Request, Status};
 
 
 pub mod pb;
+pub mod multiplex_service;
 
 // client
 
@@ -31,7 +32,8 @@ impl Greeter for MyGreeter {
                 message: format!("Hello {}!", request.into_inner().name).into(),
             },
         };
- 
+        // 客户端可以捕捉 grpc 错误
+        //Err(Status::invalid_argument("name is not a valid"))
         Ok(Response::new(reply)) // 发回格式化的问候语
     }
 }
