@@ -31,7 +31,7 @@ impl Greeter for MyGreeter {
             },
         };
         // 客户端可以捕捉 grpc 错误
-        //Err(Status::invalid_argument("name is not a valid"))
-        Ok(Response::new(reply)) // 发回格式化的问候语
+        Err(Status::invalid_argument("name is not a valid"))
+        //Ok(Response::new(reply)) 
     }
 }
